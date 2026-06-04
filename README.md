@@ -38,3 +38,8 @@ Modern Emacs setup for C++ development with LSP support and enhanced navigation.
 - Emacs 27.1+
 - `clangd` (for C++ development)
 - `ripgrep` (optional, for faster search)
+
+Here you go:
+
+---
+*Also I highly recommend using [this theme](https://github.com/Maybe707/Emacs-config/blob/main/screamtheme-theme.el). Thank you, [Maybe707](https://github.com/Maybe707/Emacs-config/commits?author=Maybe707)!*
