@@ -15,6 +15,8 @@
 ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
 ;; ============================================================================
 ;; Window & Display Configuration
 ;; ============================================================================
@@ -32,7 +34,10 @@
 
 (use-package lsp-mode
   :ensure t
-  :hook (c++-mode . lsp))
+  :hook ((c++-mode . lsp)
+         (python-mode . lsp-deferred)
+	 (cmake-mode . lsp-deferred))
+  :commands lsp lsp-deferred)
 
 (use-package lsp-ui
   :ensure t
@@ -40,6 +45,30 @@
   :custom
   (lsp-ui-doc-show-with-cursor t))
 
+;; ============================================================================
+;; Python
+;; ============================================================================
+
+(use-package python
+  :ensure nil
+  :custom
+  (python-shell-interpreter "python3"))
+
+;; Virtual environment support (M-x pyvenv-activate -> выбери .venv)
+(use-package pyvenv
+  :ensure t
+  :config
+  (pyvenv-mode 1))
+
+;; ============================================================================
+;; CMake
+;; ============================================================================
+
+(use-package cmake-mode
+  :ensure t
+  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'" . cmake-mode))
+  :hook (cmake-mode . lsp-deferred))
 ;; ============================================================================
 ;; Completion Framework
 ;; ============================================================================
@@ -198,6 +227,9 @@
 
 (global-set-key (kbd "C-x C-g") 'recentf-open-files)
 
+(global-set-key (kbd "C-c u") 'uncomment-region)
+
+
 ;; ============================================================================
 ;; Process & Buffer Management
 ;; ============================================================================
@@ -222,26 +254,36 @@
 ;; Custom Variables (auto-generated)
 ;; ============================================================================
 
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'slezytheme t)
+
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(compilation-always-kill t)
- '(custom-enabled-themes '(atom-one-dark))
- '(custom-safe-themes
-   '("a5c590aeb7dc5c2b8d36601a4c94a1145e46bd2291571af02807dd7a8552630c"
-     "75eef60308d7328ed14fa27002e85de255c2342e73275173a14ed3aa1643d545"
-     default))
  '(electric-pair-mode t)
  '(global-display-line-numbers-mode t)
  '(lsp-clients-clangd-args '("--header-insertion-decorators=0"))
+ '(lsp-enable-on-type-formatting nil)
  '(make-backup-files nil)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(atom-one-dark-theme cmake-mode company consult flycheck lsp-ui magit
-                         move-text orderless use-package vertico))
+   '(atom-one-dark-theme cmake-mode company consult dape flycheck
+			 haskell-mode lsp-ui magit move-text
+			 multiple-cursors orderless pyvenv pyvenv-auto
+			 rust-mode slime vertico))
  '(recentf-mode t)
  '(scroll-bar-mode nil)
  '(tab-bar-mode t)
  '(tool-bar-mode nil))
 
-(custom-set-faces)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 ;;; init.el ends here
