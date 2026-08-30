@@ -1,17 +1,17 @@
-;;; slezytheme-theme.el --- A dark theme by Screamlark
+;;; slezytheme-theme.el --- A dark theme by Screamlark -*- lexical-binding: t -*-
 
 ;; Title: slezytheme
 ;; Version: 1.0.0
 ;; Author: https://github.com/QuaaPa
 
-(deftheme screamtheme
+(deftheme slezytheme 
   "Gentoo TTY–inspired dark theme with canonical VGA colors")
 
 ;; ------------------------------------------------------------
 ;; Base faces
 ;; ------------------------------------------------------------
 (custom-theme-set-faces
- 'screamtheme
+ 'slezytheme
 
  ;; Core
  '(default ((t (:background "#000000" :foreground "#AAAAAA"))))
@@ -110,4 +110,4 @@
 ;; ------------------------------------------------------------
 ;; Final provide
 ;; ------------------------------------------------------------
-(provide-theme 'screamtheme)
+(provide-theme 'slezytheme)
